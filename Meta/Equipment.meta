@@ -1,0 +1,180 @@
+/*
+* Polygon
+* Copyright (C) 2017 Krogoth
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU Affero General Public License as
+* published by the Free Software Foundation, either version 3 of the
+* License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU Affero General Public License for more details.
+*
+* You should have received a copy of the GNU Affero General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+// Code repetition (in comments) isn't done yet, that's why a lot of code has to be repeated.
+
+// Declarations:
+
+DECLARATION_EQUIPMENT
+{
+/*
+	Meta::Repeat(Name = Reactor, Engine, Armor, Shield, LightWeapon, HeavyWeapon)
+	{
+		class U##Name;
+	}
+*/
+	class UReactor;
+	class UEngine;
+	class UArmor;
+	class UShield;
+	class ULightWeapon;
+	class UHeavyWeapon;
+}
+
+// Bodies:
+
+GLIDER_SLOTS_BODY
+{
+/*
+public:
+	Meta::Repeat(Name = Reactor, Engine, Armor, Shield, LightWeapon, HeavyWeapon)
+	{
+		UPROPERTY(Category = "GliderSpecification|Slots", EditAnywhere, BlueprintReadOnly, meta = (DisplayName = Name))
+		int Name##Slots;
+	}
+*/
+public:
+	UPROPERTY(Category = "GliderSpecification|Slots", EditAnywhere, BlueprintReadOnly, meta = (DisplayName = Reactor))
+	int ReactorSlots;
+	UPROPERTY(Category = "GliderSpecification|Slots", EditAnywhere, BlueprintReadOnly, meta = (DisplayName = Engine))
+	int EngineSlots;
+	UPROPERTY(Category = "GliderSpecification|Slots", EditAnywhere, BlueprintReadOnly, meta = (DisplayName = Armor))
+	int ArmorSlots;
+	UPROPERTY(Category = "GliderSpecification|Slots", EditAnywhere, BlueprintReadOnly, meta = (DisplayName = Shield))
+	int ShieldSlots;
+	UPROPERTY(Category = "GliderSpecification|Slots", EditAnywhere, BlueprintReadOnly, meta = (DisplayName = LightWeapon))
+	int LightWeaponSlots;
+	UPROPERTY(Category = "GliderSpecification|Slots", EditAnywhere, BlueprintReadOnly, meta = (DisplayName = HeavyWeapon))
+	int HeavyWeaponSlots;
+}
+
+CONFIGURATION_EQUIPMENT_BODY
+{
+/*
+public:
+	Meta::Repeat(Name = Reactor, Engine, Armor, Shield, LightWeapon, HeavyWeapon)
+	{
+		UPROPERTY(Category = Name, VisibleAnywhere, BlueprintReadOnly, meta = (
+			DisplayName = "Slots", ShortTooltip = AboutUpdate))
+		int Name##Slots;
+		UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		TArray<UClass*> Name;
+	}
+*/
+public:
+	UPROPERTY(Category = Reactor, VisibleAnywhere, BlueprintReadOnly, meta = (
+		DisplayName = "Slots", ShortTooltip = AboutUpdate))
+	int ReactorSlots;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TArray<UClass*> Reactor;
+
+	UPROPERTY(Category = Reactor, VisibleAnywhere, BlueprintReadOnly, meta = (
+		DisplayName = "Slots", ShortTooltip = AboutUpdate))
+	int EngineSlots;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TArray<UClass*> Engine;
+
+	UPROPERTY(Category = Reactor, VisibleAnywhere, BlueprintReadOnly, meta = (
+		DisplayName = "Slots", ShortTooltip = AboutUpdate))
+	int ArmorSlots;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TArray<UClass*> Armor;
+
+	UPROPERTY(Category = Reactor, VisibleAnywhere, BlueprintReadOnly, meta = (
+		DisplayName = "Slots", ShortTooltip = AboutUpdate))
+	int ShieldSlots;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TArray<UClass*> Shield;
+
+	UPROPERTY(Category = Reactor, VisibleAnywhere, BlueprintReadOnly, meta = (
+		DisplayName = "Slots", ShortTooltip = AboutUpdate))
+	int LightWeaponSlots;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TArray<UClass*> LightWeapon;
+
+	UPROPERTY(Category = Reactor, VisibleAnywhere, BlueprintReadOnly, meta = (
+		DisplayName = "Slots", ShortTooltip = AboutUpdate))
+	int HeavyWeaponSlots;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TArray<UClass*> HeavyWeapon;
+}
+
+GLIDER_EQUIPMENT_BODY
+{
+/*
+public:
+	Meta::Repeat(Name = Reactor, Engine, Armor, Shield, LightWeapon, HeavyWeapon)
+	{
+		TArray<U##Name*> Name;
+	}
+*/
+	TArray<UReactor*> Reactor;
+	TArray<UEngine*> Engine;
+	TArray<UArmor*> Armor;
+	TArray<UShield*> Shield;
+	TArray<ULightWeapon*> LightWeapon;
+	TArray<UHeavyWeapon*> HeavyWeapon;
+}
+
+// Functions:
+
+RESERVE_CONFIGURATION_SLOTS
+{
+/*
+	Meta::Repeat(Name = Reactor, Engine, Armor, Shield, LightWeapon, HeavyWeapon)
+	{
+		Name.Reserve(2);
+	}
+*/
+	Reactor.Reserve(2);
+	Engine.Reserve(2);
+	Armor.Reserve(2);
+	Shield.Reserve(2);
+	LightWeapon.Reserve(2);
+	HeavyWeapon.Reserve(2);
+}
+UPDATE_CONFIGURATION_SLOTS
+{
+/*
+	Meta::Repeat(Name = Reactor, Engine, Armor, Shield, LightWeapon, HeavyWeapon)
+	{
+		Name##Slots = NewGlider->Name##Slots;
+	}
+*/
+	ReactorSlots = NewGlider->ReactorSlots;
+	ArmorSlots = NewGlider->ArmorSlots;
+	EngineSlots = NewGlider->EngineSlots;
+	ShieldSlots = NewGlider->ShieldSlots;
+	LightWeaponSlots = NewGlider->LightWeaponSlots;
+	HeavyWeaponSlots = NewGlider->HeavyWeaponSlots;
+}
+RESET_CONFIGURATION_SLOTS
+{
+/*
+	Meta::Repeat(Name = Reactor, Engine, Armor, Shield, LightWeapon, HeavyWeapon)
+	{
+		Name##Slots = 0;
+	}
+*/
+	ReactorSlots = 0;
+	ArmorSlots = 0;
+	EngineSlots = 0;
+	ShieldSlots = 0;
+	LightWeaponSlots = 0;
+	HeavyWeaponSlots = 0;
+}
